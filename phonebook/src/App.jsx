@@ -34,6 +34,14 @@ const PersonForm = (props) => {
     </form>
   )
 }
+
+const Persons = ({ persons }) =>
+  <div>
+    {persons.map(person =>
+      <div key={person.id}>{person.name} {person.number}</div>  
+    )}
+  </div>
+
 const App = () => {
   const dummyPersons = [
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -89,11 +97,7 @@ const App = () => {
         onNumberChange={handleNumberChange}
       />
       <h3>Numbers</h3>
-      <div>
-        {displayedPersons.map(person =>
-          <div key={person.id}>{person.name} {person.number}</div>  
-        )}
-      </div>
+      <Persons persons={displayedPersons}/>
     </div>
   )
 }
