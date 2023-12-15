@@ -39,7 +39,7 @@ const App = () => {
   const handleNameFilterChange = (event) => setNameFilter(event.target.value)
 
   const displayedPersons = nameFilter
-    ? persons.filter(person => person.name.includes(nameFilter))
+    ? persons.filter(person => person.name.toLowerCase().includes(nameFilter.toLowerCase()))
     : persons
 
   return (
