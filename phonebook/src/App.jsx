@@ -25,12 +25,14 @@ const App = () => {
       id: persons.length + 1
     }
 
-    const duplicateNameIndex = persons.findIndex(person => person.name === personObject.name)
+    const duplicateNameIndex = persons.findIndex(person => 
+      person.name.toLowerCase() === personObject.name.toLowerCase()
+    )
 
     if (duplicateNameIndex === -1) {
       setPersons(persons.concat(personObject))
     } else {
-      alert(`${newName} is already added to phonebook`)
+      alert(`${persons[duplicateNameIndex].name} is already added to phonebook`)
     }
 
     setNewName('')
