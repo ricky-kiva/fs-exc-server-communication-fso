@@ -1,5 +1,14 @@
 import { useState } from "react"
 
+const Filter = ({ filter, onFilterChange }) =>
+  <form>
+  filter shown with
+  <input 
+    value={filter}
+    onChange={onFilterChange}
+  />
+  </form>
+
 const App = () => {
   const dummyPersons = [
     { name: 'Arto Hellas', number: '040-123456', id: 1 },
@@ -44,15 +53,9 @@ const App = () => {
 
   return (
     <div>
-      <h1>Phonebook</h1>
-      <form>
-        filter shown with
-        <input 
-          value={nameFilter}
-          onChange={handleNameFilterChange}
-        />
-      </form>
-      <h2>add a new</h2>
+      <h2>Phonebook</h2>
+      <Filter filter={nameFilter} onFilterChange={handleNameFilterChange} />
+      <h3>Add a new</h3>
       <form onSubmit={addPerson}>
         <div>
           name: 
@@ -72,7 +75,7 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
-      <h2>Numbers</h2>
+      <h3>Numbers</h3>
       <div>
         {displayedPersons.map(person =>
           <div key={person.id}>{person.name} {person.number}</div>  
