@@ -25,20 +25,29 @@ const App = () => {
       number: newNumber,
     }
 
-    const duplicateNameIndex = persons.findIndex(person => 
+    const duplicatePerson = persons.find(person => 
       person.name.toLowerCase() === personObject.name.toLowerCase()
     )
 
-    if (duplicateNameIndex === -1) {
+    if (duplicatePerson) {
+      const confirmMessage = `${duplicatePerson.name} is already added to phonebook, replace the old number with a new one?`
+      if (window.confirm(confirmMessage)) {
+        const updatedPerson = { ...duplicatePerson, number: newNumber }
+        personService.update(duplicatePerson.id, updatedPerson).then(returnedPerson => 
+          setPersons(persons.map(p => p.id !== duplicatePerson.id ? p : returnedPerson))
+        )
+
+        setNewName('')
+        setNewNumber('')
+      }
+    } else {
       personService.create(personObject).then(returnedPerson => {
         setPersons(persons.concat(returnedPerson))
       })
-    } else {
-      alert(`${personObject.name} is already added to phonebook`)
-    }
 
-    setNewName('')
-    setNewNumber('')
+      setNewName('')
+      setNewNumber('')
+    }
   }
 
   const deletePerson = id => {
