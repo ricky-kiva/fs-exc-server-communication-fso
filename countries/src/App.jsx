@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div>
       <FindCountry findHandler={foundChangeHandler} />
-      <CountryList found={found} />
+      <CountryList found={found} showHandler={setFound}/>
     </div>
   )
 }
