@@ -34,9 +34,17 @@ const App = () => {
       const confirmMessage = `${duplicatePerson.name} is already added to phonebook, replace the old number with a new one?`
       if (window.confirm(confirmMessage)) {
         const updatedPerson = { ...duplicatePerson, number: newNumber }
-        personService.update(duplicatePerson.id, updatedPerson).then(returnedPerson => 
-          setPersons(persons.map(p => p.id !== duplicatePerson.id ? p : returnedPerson))
-        )
+        
+        personService
+          .update(duplicatePerson.id, updatedPerson)
+            .then(returnedPerson => 
+              setPersons(persons.map(p => p.id !== duplicatePerson.id ? p : returnedPerson))
+            )
+            .catch(() => {
+              setNotification(`Information of ${duplicatePerson.name} has already been removed from server`)
+              setTimeout(() => setNotification(null), 5000)
+              setPersons(persons.filter(p => p.id != duplicatePerson.id))
+            })
 
         setNotification(`${updatedPerson.name}'s number has been updated`)
         setTimeout(() => setNotification(null), 5000)

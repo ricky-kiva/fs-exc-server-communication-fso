@@ -12,6 +12,10 @@ const Notification = ({ message }) => {
         "padding": 10,
         "marginBottom": 10
     }
+
+    if (message.search('removed') !== -1) {
+        notificationStyle.color = "red"
+    }
     
     return (
         <div style={notificationStyle}>
