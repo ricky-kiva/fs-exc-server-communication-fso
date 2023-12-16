@@ -23,7 +23,6 @@ const App = () => {
     const personObject = {
       name: titleCaseName,
       number: newNumber,
-      id: persons.length + 1
     }
 
     const duplicateNameIndex = persons.findIndex(person => 
