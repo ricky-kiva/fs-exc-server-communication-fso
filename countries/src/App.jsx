@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
+import Country from "./components/Country"
 import countryService from "./services/countries"
+
 
 const App = () => {
   const [countries, setCountries] = useState([])
@@ -9,11 +11,13 @@ const App = () => {
       .then(initialCountries => setCountries(initialCountries))
   }, [])
 
+  if (countries.length === 0) {
+    return <div>Loading..</div>
+   }
+
   return (
     <div>
-      {countries.map((c, i) => 
-        <div key={i}>{c.name.common}</div>
-      )}
+      <Country country={countries[0]}/>
     </div>
   )
 }
