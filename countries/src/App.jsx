@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import countryService from "./services/countries"
+import FindCountry from "./components/FindCountry"
+import CountryList from "./components/CountryList"
 
 
 const App = () => {
@@ -20,21 +22,17 @@ const App = () => {
         c.name.common.toLowerCase()
           .includes(text.toLowerCase())
       ))
-    } 
+    }
   }
 
   if (countries.length === 0) {
     return <div>Loading..</div>
-   }
+  }
 
   return (
     <div>
-      find countries <input onChange={foundChangeHandler} />
-      <ul>
-        {found.map((c, i) => 
-          <li key={i}>{c.name.common}</li>
-        )}
-      </ul>
+      <FindCountry findHandler={foundChangeHandler} />
+      <CountryList found={found} />
     </div>
   )
 }
