@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import axios from 'axios'
 import Filter from "./components/Filter"
 import PersonForm from "./components/PersonForm"
 import Persons from "./components/Persons"
+import personService from "./services/persons"
 
 const App = () => {
 
@@ -12,15 +12,16 @@ const App = () => {
   const [nameFilter, setNameFilter] = useState('')
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons')
-      .then(response => setPersons(response.data))
+    personService.getAll()
+      .then(initialPersons => setPersons(initialPersons))
   }, [])
 
   const addPerson = (event) => {
     event.preventDefault()
 
+    const titleCaseName = toTitleCase(newName)
     const personObject = {
-      name: newName,
+      name: titleCaseName,
       number: newNumber,
       id: persons.length + 1
     }
@@ -30,9 +31,11 @@ const App = () => {
     )
 
     if (duplicateNameIndex === -1) {
-      setPersons(persons.concat(personObject))
+      personService.create(personObject).then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+      })
     } else {
-      alert(`${persons[duplicateNameIndex].name} is already added to phonebook`)
+      alert(`${personObject.name} is already added to phonebook`)
     }
 
     setNewName('')
@@ -64,5 +67,9 @@ const App = () => {
     </div>
   )
 }
+
+const toTitleCase = (s) => s.replace(/([^\W_]+[^\s-]*) */g, (txt) => (
+  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+))
 
 export default App
