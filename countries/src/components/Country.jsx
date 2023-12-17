@@ -1,4 +1,5 @@
 import { useState } from "react"
+import CapitalWeather from './CapitalWeather'
 
 const Country = ({ country }) => {
     const [imageLoad, setImageLoad] = useState(false)
@@ -22,6 +23,11 @@ const Country = ({ country }) => {
                 alt={country.flags.alt} 
                 style={imageLoad ? { maxHeight: '148px' } : { display: 'none' }}
                 onLoad={() => setImageLoad(true)}
+            />
+            <CapitalWeather 
+                name={country.capital[0]}
+                lat={country.capitalInfo.latlng[0]}
+                lon={country.capitalInfo.latlng[1]}
             />
         </div>
     )
