@@ -1,5 +1,5 @@
 const Header = ({ name }) => 
-  <h2>{name}</h2>
+  <h3>{name}</h3>
 
 const Content = ({ parts }) =>
 <div>
@@ -20,7 +20,7 @@ const Course = ({ course }) => {
         <div>
         <Header name={name} />
         <Content parts={parts} />
-        <h3>total of {total} exercises</h3>
+        <h4>total of {total} exercises</h4>
         </div>
     )
 }
