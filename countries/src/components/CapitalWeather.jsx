@@ -12,8 +12,6 @@ const CapitalWeather = ({ name, lat, lon }) => {
         }
     }, [lat, lon])
 
-    console.log(weatherData)
-
     return (
         <div>
             <h3>Weather in {name}</h3>
